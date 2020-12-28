@@ -81,21 +81,4 @@ public class FileBasedStore {
             System.err.println("Error: Key does not Exist");
         }
     }
-
-public static void main(String args[]) throws Exception {
-        FileBasedStore fs = new FileBasedStore();
-        JSONObject json = new JSONObject();
-        json.put("Babu", "23");
-        JSONObject json1 = new JSONObject();
-        json1.put("Kumar", "23");
-        fs.createData("Rahul", json);
-        fs.readData("Rahul");
-        fs.createData("Yogesh", json1, 5);
-        fs.readData("Yogesh");
-        Thread.sleep(6000);
-        fs.readData("Yogesh");
-        fs.deleteData("Rahul");
-        fs.deleteData("Rahul");
-    }
-
 }
