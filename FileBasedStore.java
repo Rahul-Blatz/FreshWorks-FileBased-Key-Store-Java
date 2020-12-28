@@ -4,7 +4,6 @@ import org.json.simple.JSONObject;
 
 class Value {
 
-    long timeOut;
     JSONObject value;
 
     Value(int timeOut, JSONObject value) {
@@ -44,12 +43,16 @@ public class FileBasedStore {
         if (file.containsKey(key)) {
             System.err.println("Error: This key " + key + " is already created");
         } else {
-            if ((file.size() < (1024 * 1024 * 1024)) && (val.size() < 16 * 1024 * 1024) && key.length() <= 32) {
-                timeOut = (int) (Instant.now().getEpochSecond() + timeOut);
-                Value valWithTimeout = new Value(timeOut, val);
-                file.put(key, valWithTimeout);
+	    if (key.length() > 32) {
+                System.err.println("Length of the key is greater that 32");
             } else {
-                System.err.println("Size is too big");
+                if ((file.size() < (1024 * 1024 * 1024)) && (val.size() < 16 * 1024 * 1024) && key.length() <= 32) {
+                    timeOut = (int) (Instant.now().getEpochSecond() + timeOut);
+                    Value valWithTimeout = new Value(timeOut, val);
+                    file.put(key, valWithTimeout);
+                } else {
+                    System.err.println("Size is too big");
+                }
             }
         }
     }
