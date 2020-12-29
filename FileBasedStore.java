@@ -71,7 +71,8 @@ public class FileBasedStore {
             System.err.println("Error: No data store is initialized");
         }
 
-        if (file.containsKey(key)) {
+        else{
+	    if (file.containsKey(key)) {
             Value value = file.get(key);
             if ((value.timeOut > (int) (Instant.now().getEpochSecond())) || (value.timeOut == 0)) {
 //               System.out.println(value.timeOut+" : "+Instant.now().getEpochSecond());
@@ -82,6 +83,7 @@ public class FileBasedStore {
         } else {
             System.err.println("Error : The key is not found in the DataStore");
         }
+	}
     }
 
     public static void deleteData(String key) {
@@ -89,7 +91,8 @@ public class FileBasedStore {
             System.err.println("Error: No data store is initialized");
         }
 
-        if (file.containsKey(key)) {
+        else{
+	   if (file.containsKey(key)) {
             Value value = file.get(key);
             if ((value.timeOut < Instant.now().getEpochSecond())) {
                 file.remove(key);
@@ -100,5 +103,6 @@ public class FileBasedStore {
         } else {
             System.err.println("Error: Key does not Exist");
         }
+	}
     }
 }
